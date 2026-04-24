@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anshul Siwach -Demo Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230d0d0d'/><text x='50' y='55' font-family='monospace' font-size='50' font-weight='bold' fill='%23eeebe4' text-anchor='middle' dominant-baseline='middle'>AS</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
+
+    :root {
+      --bg: #eeebe4;
+      --fg: #0d0d0d;
+      --mono: 'Space Mono', monospace;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* ─── TOP GREEN BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: #233a23;
+      z-index: 300;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 6px;
+      left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      padding: 20px 38px;
+      background: var(--bg);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 14.5px;
+      line-height: 1.28;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 50px;
+      margin: 0 auto;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      color: var(--fg);
+      text-transform: uppercase;
+    }
+    .nav-links a::before { content: '[ '; }
+    .nav-links a::after  { content: ' ]'; }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--fg);
+      border-bottom: 2.5px solid var(--fg);
+      padding-bottom: 1px;
+      white-space: nowrap;
+    }
+    .nav-cta::after { content: ' ↗'; }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding-top: 82px; /* below fixed nav */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-counter {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      padding: 12px 44px 0;
+    }
+
+    /* Full-bleed giant headline — same as original */
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-size: clamp(100px, 15.5vw, 220px);
+      line-height: 0.83;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 2px 30px 0;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      margin-left: 4%;
+    }
+
+    /* ─── HERO LAYOUT ZONE (photo + overlays) ─── */
+    .hero-zone {
+      position: relative;
+      height: 480px;
+      margin-top: -60px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 2;
+    }
+
+    .info-container {
+      position: relative;
+      width: 75%;
+      max-width: 900px;
+      height: 280px;
+      background: #dbd8d2;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .photo-main {
+      position: absolute;
+      right: 8%;
+      bottom: 0;
+      width: 320px;
+      height: 415px;
+      background: #7f7f7f;
+      z-index: 4;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(-550px);
+      transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .photo-main.slide-right {
+      transform: translateX(0);
+    }
+    .photo-main img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      display: block;
+    }
+    .photo-placeholder {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      line-height: 1.9;
+    }
+
+    .hero-services {
+      padding: 40px;
+      z-index: 3;
+    }
+    .hero-services p, .hero-young {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.015em;
+      line-height: 1.65;
+    }
+    .hero-young {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      z-index: 3;
+    }
+
+    /* "BASED IN NEW DELHI" — right side */
+    .hero-location {
+      position: absolute;
+      right: 38px;
+      bottom: 0px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* Bio */
+    .hero-bio {
+      text-align: center;
+      padding: 54px 40px 24px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      line-height: 1.95;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      border-top: 1px solid var(--fg);
+      border-bottom: 1px solid var(--fg);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 13px 0;
+      margin-top: 28px;
+    }
+    .marquee-inner {
+      display: inline-flex;
+      align-items: center;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-inner span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 33px;
+      letter-spacing: 0.05em;
+      padding: 0 24px;
+      text-transform: uppercase;
+    }
+    .marquee-inner .dot { font-size: 8px; padding: 0 5px; }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── WORKS ─── */
+    #works { padding: 80px 40px; }
+    .sec-hdr { display: flex; align-items: baseline; gap: 16px; margin-bottom: 42px; }
+    .sec-n  { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: #777; }
+    .sec-t  { font-family: 'Bebas Neue', sans-serif; font-size: 50px; letter-spacing: 0.02em; }
+    .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+    .work-item { position: relative; overflow: hidden; cursor: pointer; }
+    .work-thumb { width: 100%; height: 365px; background: #1c1c1c; display: flex; align-items: center; justify-content: center; transition: transform .5s ease; }
+    .work-item:nth-child(2) .work-thumb { background: #2b2b2b; }
+    .work-item:nth-child(3) .work-thumb { background: #333; }
+    .work-item:nth-child(4) .work-thumb { background: #111; }
+    .work-item:hover .work-thumb { transform: scale(1.04); }
+    .work-lbl { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.15em; color: rgba(255,255,255,0.28); text-transform: uppercase; }
+    .work-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.8; transition: opacity .3s; }
+    .work-item:hover .work-img { opacity: 1; }
+    .loading-bar { width: 120px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; overflow: hidden; }
+    .loading-bar::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 40px; background: #fff; border-radius: 2px; animation: loading 1.2s infinite ease-in-out; }
+    @keyframes loading { 0% { transform: translateX(-40px); } 100% { transform: translateX(120px); } }
+    .work-ov { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
+    .work-item:hover .work-ov { background: rgba(0,0,0,0.5); }
+    .work-nm { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; opacity: 0; transform: translateY(10px); transition: all .3s; }
+    .work-tg { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: rgba(255,255,255,0.65); text-transform: uppercase; margin-top: 4px; opacity: 0; transform: translateY(10px); transition: all .3s .05s; }
+    .work-item:hover .work-nm, .work-item:hover .work-tg { opacity: 1; transform: translateY(0); }
+
+    /* ─── SERVICES ─── */
+    #services { padding: 80px 40px; border-top: 1px solid var(--fg); }
+    .svc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 42px; }
+    .svc-item { padding: 36px 30px; border-right: 1px solid var(--fg); transition: background .25s; }
+    .svc-item:last-child { border-right: none; }
+    .svc-item:hover { background: var(--fg); }
+    .svc-item:hover .sn, .svc-item:hover .st, .svc-item:hover .sd { color: var(--bg); }
+    .sn { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: #999; margin-bottom: 22px; transition: color .25s; }
+    .st { font-family: 'Bebas Neue', sans-serif; font-size: 35px; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 12px; transition: color .25s; }
+    .sd { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; line-height: 1.85; color: #555; text-transform: uppercase; transition: color .25s; }
+
+    /* ─── ABOUT ─── */
+    #about { padding: 80px 40px; background: var(--fg); color: var(--bg); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .a-head { font-family: 'Bebas Neue', sans-serif; font-size: clamp(58px, 7vw, 94px); line-height: 0.9; text-transform: uppercase; }
+    .a-stats { display: flex; gap: 42px; margin-top: 34px; }
+    .a-sn { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: var(--bg); }
+    .a-sl { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-top: 3px; }
+    .a-txt { font-family: var(--mono); font-size: 14px; letter-spacing: 0.07em; line-height: 2; text-transform: uppercase; color: #ccc; }
+    .a-txt p + p { margin-top: 18px; }
+
+    /* ─── CONNECT ─── */
+    #connect { border-top: 1px solid var(--fg); padding: 90px 40px; text-align: center; }
+    .c-head  { font-family: 'Bebas Neue', sans-serif; font-size: clamp(66px, 10vw, 134px); line-height: 0.88; text-transform: uppercase; margin-bottom: 34px; }
+    .c-email { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--fg); border-bottom: 2px solid var(--fg); padding-bottom: 2px; }
+    .c-email:hover { opacity: .5; }
+    .c-soc { display: flex; gap: 28px; justify-content: center; margin-top: 46px; flex-wrap: wrap; }
+    .c-sl  { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--fg); border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .c-sl:hover { border-color: var(--fg); }
+
+    /* ─── FOOTER ─── */
+    footer { border-top: 1px solid var(--fg); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .f-c { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .f-b { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--fg); }
+
+    /* ─── REVEAL & ANIMATIONS ─── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s cubic-bezier(0.2, 0.8, 0.2, 1), transform .8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .hero-enter { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .hero-enter.in { opacity: 1; transform: translateY(0); }
+
+    #preloader {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .preloader-pane {
+      position: absolute; left: 0; right: 0; height: 50vh;
+      background: #0d0d0d;
+      transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+    }
+    .preloader-top { top: 0; }
+    .preloader-bottom { bottom: 0; }
+    
+    #preloader.done .preloader-top { transform: translateY(-100%); }
+    #preloader.done .preloader-bottom { transform: translateY(100%); }
+
+    #preloader-words {
+      position: relative; z-index: 10001;
+      font-family: var(--mono); font-weight: 700; font-size: clamp(35px, 6vw, 60px);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #fff;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    #preloader-words.show { opacity: 1; transform: translateY(0); }
+    #preloader.done #preloader-words {
+      opacity: 0; transform: scale(1.05); transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    /* ─── CURSOR ─── */
+    #cur {
+      position: fixed; width: 8px; height: 8px;
+      background: #fff; border-radius: 50%;
+      mix-blend-mode: difference;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .18s, height .18s, background .18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #cur.big {
+      width: 38px; height: 38px;
+      background: transparent;
+      border: 1.5px solid #fff;
+    }
+    #cur.project-hover {
+      width: 60px; height: 60px;
+      background: #fff;
+      border: none;
+    }
+    #cur.project-hover::after {
+      content: 'VIEW';
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #000;
+      letter-spacing: 0.1em;
+      margin-left: 1px;
+    }
+    #cur.project-hover.coming-soon-hover {
+      width: 76px; height: 76px;
+    }
+    #cur.project-hover.coming-soon-hover::after {
+      content: 'COMING\A SOON';
+      white-space: pre;
+      text-align: center;
+      line-height: 1.3;
+      margin-left: 0;
+    }
+    #cur.contact-hover {
+      width: 76px; height: 76px;
+      background: #fff;
+      border: none;
+    }
+    #cur.contact-hover::after {
+      content: 'CONTACT\A ME';
+      white-space: pre;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #000;
+      letter-spacing: 0.1em;
+      line-height: 1.3;
+      margin-left: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-pane preloader-top"></div>
+  <div class="preloader-pane preloader-bottom"></div>
+  <div id="preloader-words"></div>
+</div>
+
+<div id="cur"></div>
+<div class="top-bar"></div>
+
+<!-- NAV -->
+<nav class="hero-enter">
+  <a href="#" class="nav-logo">Anshul<br>Siwach</a>
+  <ul class="nav-links">
+    <li><a href="#about">About Me</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+  <a class="nav-cta" href="#connect">Contact Me</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+
+  <p class="hero-counter hero-enter">1,618</p>
+
+  <h1 class="hero-headline hero-enter">ANSHUL SIWACH</h1>
+
+  <div class="hero-zone hero-enter">
+    <div class="info-container">
+
+      <p class="hero-young hero-enter">/ CREATIVE MIND</p>
+
+      <div class="hero-services">
+        <p>/ ART DIRECTION</p>
+        <p>/ WEB DESIGN (UX/UI)</p>
+        <p>/ WEB DEVELOPMENT</p>
+      </div>
+
+      <div class="photo-main">
+        <!-- ↓ Replace this block with your actual photo: <img src="photo.jpg" alt="Name"> -->
+        <img src="anshul1.png" alt="Anshul Siwach">
+      </div>
+
+    </div>
+
+    <div class="hero-location">B A S E D &nbsp; I N -&nbsp; N E W &nbsp; D E L H I</div>
+
+  </div>
+
+  <p class="hero-bio">
+    I'M EXPERIENCED WEB AND UX/UI DESIGNER, WHO<br>
+    DESIGN MEMORABLE WEB EXPERIENCES FOR BRANDS<br>
+    OF ALL SIZES.
+  </p>
+
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UX / UI</span><span class="dot">✦</span>
+    <span>Branding</span><span class="dot">✦</span>
+    <span>Web Development</span><span class="dot">✦</span>
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UX / UI</span><span class="dot">✦</span>
+    <span>Branding</span><span class="dot">✦</span>
+    <span>Web Development</span><span class="dot">✦</span>
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UX / UI</span><span class="dot">✦</span>
+    <span>Branding</span><span class="dot">✦</span>
+    <span>Web Development</span><span class="dot">✦</span>
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UX / UI</span><span class="dot">✦</span>
+    <span>Branding</span><span class="dot">✦</span>
+    <span>Web Development</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ═══ WORKS ═══ -->
+<section id="works">
+  <div class="sec-hdr reveal">
+    <span class="sec-n">[ 01 ]</span>
+    <h2 class="sec-t">Selected Works</h2>
+  </div>
+  <div class="works-grid">
+    <div class="work-item reveal"><div class="work-thumb"><img class="work-img" src="https://community.spotify.com/t5/image/serverpage/image-id/187160i400339190307C48B?v=v2"></div><div class="work-ov"><p class="work-nm">Project One</p><p class="work-tg">Branding · Web Design</p></div></div>
+    <div class="work-item reveal" style="transition-delay:.08s"><div class="work-thumb"><img class="work-img" src="https://www.devicemag.com/wp-content/uploads/2022/12/netflix-home-screen-1-1-2000x1125.webp"></div><div class="work-ov"><p class="work-nm">Project Two</p><p class="work-tg">UX/UI · Development</p></div></div>
+    <div class="work-item reveal" style="transition-delay:.13s"><div class="work-thumb"><img class="work-img" src="https://kartikraiyani03.github.io/Portfolio/l1.png"></div><div class="work-ov"><p class="work-nm">Project Three</p><p class="work-tg">Art Direction</p></div></div>
+    <div class="work-item coming-soon reveal" style="transition-delay:.18s"><div class="work-thumb"><div class="loading-bar"></div></div><div class="work-ov"><p class="work-nm">Project Four</p><p class="work-tg">Identity · Strategy</p></div></div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="sec-hdr reveal">
+    <span class="sec-n">[ 02 ]</span>
+    <h2 class="sec-t">Services</h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-item reveal"><p class="sn">01</p><h3 class="st">Art Direction</h3><p class="sd">Visual storytelling and creative strategy that defines the look and feel of your brand across every touchpoint.</p></div>
+    <div class="svc-item reveal" style="transition-delay:.08s"><p class="sn">02</p><h3 class="st">Web Design (UX/UI)</h3><p class="sd">User-centred interfaces designed with purpose — balancing aesthetic beauty with seamless, intuitive experience.</p></div>
+    <div class="svc-item reveal" style="transition-delay:.16s"><p class="sn">03</p><h3 class="st">Web Development</h3><p class="sd">Clean, performant code that brings your design to life — responsive, accessible, and built to last.</p></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="reveal">
+    <h2 class="a-head">About<br>Me</h2>
+    <div class="a-stats">
+      <div><p class="a-sn">5+</p><p class="a-sl">Years<br>Experience</p></div>
+      <div><p class="a-sn">60+</p><p class="a-sl">Projects<br>Delivered</p></div>
+      <div><p class="a-sn">30+</p><p class="a-sl">Happy<br>Clients</p></div>
+    </div>
+  </div>
+  <div class="a-txt reveal" style="transition-delay:.12s">
+    <p>I'm a creative designer specialising in web design, UX/UI, and art direction. I work with brands of all sizes to craft digital experiences that are visually memorable and strategically sound.</p>
+    <p>My approach blends sharp aesthetic sensibility with a deep understanding of how people use digital products — resulting in work that looks great and performs even better.</p>
+    <p>Currently available for freelance projects and collaborations.</p>
+  </div>
+</section>
+
+<!-- ═══ CONNECT ═══ -->
+<section id="connect">
+  <h2 class="c-head reveal">Let's<br>Work<br>Together</h2>
+  <a class="c-email reveal" href="mailto:hello@anshulsiwach.com">hello@anshulsiwach.com</a>
+  <div class="c-soc reveal">
+    <a class="c-sl" href="#">Instagram</a>
+    <a class="c-sl" href="#">LinkedIn</a>
+    <a class="c-sl" href="#">Behance</a>
+    <a class="c-sl" href="#">Dribbble</a>
+    <a class="c-sl" href="#">Twitter / X</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="f-c">© 2026 Anshul Siwach — All Rights Reserved</p>
+  <a class="f-b" href="#hero">Back to Top ↑</a>
+</footer>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
+  const wordsEl = document.getElementById('preloader-words');
+  const pre = document.getElementById('preloader');
+  const greetings = ["Hi", "Hello", "नमस्ते", "வணக்கம்", "ನಮಸ್ಕಾರ", "নমস্কার", "Bonjour", "Hola", "Ciao", "Привет", "こんにちは", "안녕하세요", "Welcome"];
+  let wordIdx = 0;
+
+  const showNextWord = () => {
+    if (wordIdx === 0) wordsEl.classList.add('show');
+    
+    if (wordIdx < greetings.length) {
+      wordsEl.textContent = greetings[wordIdx];
+      
+      let duration;
+      if (wordIdx < 3) {
+        duration = 450; // Slower for first 3 (Hi, Hello, Namaste)
+      } else if (wordIdx === greetings.length - 1) {
+        duration = 700; // Hold the last word ("Welcome") briefly before revealing
+      } else {
+        duration = 150; // Very fast for the middle Indian languages
+      }
+      
+      wordIdx++;
+      setTimeout(showNextWord, duration);
+    } else {
+      pre.classList.add('done');
+      setTimeout(() => {
+        document.querySelectorAll('.hero-enter').forEach((el, i) => {
+          setTimeout(() => el.classList.add('in'), i * 150);
+        });
+        
+        setTimeout(() => {
+          document.querySelector('.photo-main').classList.add('slide-right');
+        }, 1500);
+      }, 600);
+    }
+  };
+  setTimeout(showNextWord, 200);
+
+  const cur = document.getElementById('cur');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('a, .svc-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('big'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+  });
+
+  document.querySelectorAll('.work-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cur.classList.add('project-hover');
+      if(el.classList.contains('coming-soon')) cur.classList.add('coming-soon-hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.classList.remove('project-hover');
+      cur.classList.remove('coming-soon-hover');
+    });
+  });
+
+  document.querySelectorAll('.photo-main').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('contact-hover'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('contact-hover'));
+    el.addEventListener('click', () => window.location.href = '#connect');
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
