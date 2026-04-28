@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import LocomotiveScroll from 'locomotive-scroll';
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -10,6 +11,7 @@ import About from './components/About';
 import Connect from './components/Connect';
 import Footer from './components/Footer';
 import { useReveal } from './hooks/useReveal';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 import './index.css';
 
 function App() {
@@ -17,6 +19,16 @@ function App() {
 
   // Initialize intersection observer for reveals
   useReveal();
+
+  useEffect(() => {
+    const locomotiveScroll = new LocomotiveScroll({
+      lenisOptions: {
+        lerp: 0.08,
+        duration: 1.2,
+      }
+    });
+    return () => locomotiveScroll.destroy();
+  }, []);
 
   useEffect(() => {
     if (preloaderDone) {

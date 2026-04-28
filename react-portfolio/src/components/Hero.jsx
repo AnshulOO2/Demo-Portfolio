@@ -16,7 +16,7 @@ function Hero() {
             <p>/ WEB DEVELOPMENT</p>
           </div>
           <div className="photo-main" onClick={scrollToConnect}>
-            <img src="/anshul1.png" alt="Anshul Siwach" />
+            <img src="/Anshul2.JPG" alt="Anshul Siwach" />
           </div>
         </div>
         <div className="hero-location">B A S E D &nbsp; I N -&nbsp; N E W &nbsp; D E L H I</div>
