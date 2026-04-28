@@ -1,0 +1,15 @@
+[build]
+  # Tell Netlify the code is in the subfolder
+  base = "react-portfolio"
+  
+  # The command to build your Vite project
+  command = "npm run build"
+  
+  # The folder where the finished files live (I see it in your sidebar!)
+  publish = "dist"
+
+[[redirects]]
+  # This fixes the 404 error if you refresh the page later
+  from = "/*"
+  to = "/index.html"
+  status = 200
